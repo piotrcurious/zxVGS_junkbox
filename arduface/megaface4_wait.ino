@@ -351,7 +351,7 @@ ISR(INT0_vect) { // IORQ_PIN_NUM (Digital Pin 2) - IORQ asserted (falling edge)
                 :
                 : "I" (_SFR_IO_ADDR(DATA_PORT_REGISTER)), "r" (data_to_send)
             );
-
+            set_wait_state(false); // Release WAIT, allow Z80 to continue
             // Wait for RD to go HIGH (Z80 has latched data)
             byte temp_rd_state;
             do {
@@ -365,7 +365,7 @@ ISR(INT0_vect) { // IORQ_PIN_NUM (Digital Pin 2) - IORQ asserted (falling edge)
         }
     }
 
-    set_wait_state(false); // Release WAIT, allow Z80 to continue
+    
 }
 
 // --- SD Card Operations (Blocking calls, not in ISR) ---
